@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "private": true,
+  "scripts": {
+    "start": "meteor --settings=settings.json --port=8000"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.17.9",
+    "meteor-node-stubs": "^1.2.1"
+  },
+  "meteor": {
+    "mainModules": {
+      "server": "server/main.js"
+    }
+  }
+}
