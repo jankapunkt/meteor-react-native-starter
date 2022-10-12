@@ -3,7 +3,7 @@ import { Text, TextInput, Button, View } from 'react-native'
 import { inputStyles } from '../styles/inputStyles'
 import { AuthContext } from '../contexts/AuthContext'
 
-export const RegistrationScreen = (props) => {
+export const RegistrationScreen = () => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [error, setError] = useState()

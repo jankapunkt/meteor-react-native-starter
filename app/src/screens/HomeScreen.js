@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, StyleSheet } from 'react-native'
 import { AuthContext } from '../contexts/AuthContext'
+import { MyTasks } from '../components/MyTasks'
 
 export const HomeScreen = () => {
   const [error, setError] = useState(null)
@@ -18,8 +19,20 @@ export const HomeScreen = () => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text>My Tasks</Text>
+      <MyTasks />
+      {renderError()}
       <Button title="Sign out" onPress={handleSignOut} />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#efefef',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})

@@ -3,8 +3,12 @@ import Meteor from '@meteorrn/core'
 import * as SecureStore from 'expo-secure-store'
 import config from '../../config.json'
 
+// get detailed debug about internals
+Meteor.isVerbose = true
+
+// connect with Meteor and use a secure store
+// to persist our received login token
 Meteor.connect(config.backend.url, {
-  // store login token in SecureStore!
   AsyncStorage: {
     getItem: SecureStore.getItemAsync,
     setItem: SecureStore.setItemAsync,
@@ -12,21 +16,28 @@ Meteor.connect(config.backend.url, {
   }
 })
 
-Meteor.isVerbose = true
-
+/**
+ * Hook that handle auto-reconnect and updates state accordingly.
+ * @return {{connected: boolean|null, connectionError: Error|null}}
+ */
 export const useConnectMeteor = () => {
   const [connected, setConnected] = useState(null)
   const [connectionError, setConnectionError] = useState(null)
 
-  // TODO try useMemo and useTracker and see if this is functional
-
   useEffect(() => {
+    // on any connection error
     const onError = (e) => setConnectionError(e)
+    Meteor.ddp.on('error', onError)
+
+    // if a connection has been established
     const onConnected = () =>  {
       if (connected !== true) {
         setConnected(true)
       }
     }
+    Meteor.ddp.on('connected', onConnected)
+
+    // if the connection is lost
     const onDisconnected = () => {
       Meteor.ddp.autoConnect = true
       if (connected !== false) {
@@ -34,10 +45,9 @@ export const useConnectMeteor = () => {
       }
       Meteor.reconnect()
     }
-    Meteor.ddp.on('error', onError)
-    Meteor.ddp.on('connected', onConnected)
     Meteor.ddp.on('disconnected',onDisconnected)
 
+    // remove on unmount
     return () => {
       Meteor.ddp.off('error', onError)
       Meteor.ddp.off('connected', onConnected)

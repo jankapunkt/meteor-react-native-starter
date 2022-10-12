@@ -1,25 +1,27 @@
 import React, { createContext } from 'react'
-import { useLogin } from '../hooks/useLogin'
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { HomeScreen } from './HomeScreen'
-import { LoginScreen } from './LoginScreen'
 import { CardStyleInterpolators } from '@react-navigation/stack'
 import { AuthContext } from '../contexts/AuthContext'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { useLoginMeteor } from '../hooks/useLoginMeteor'
+import { HomeScreen } from './HomeScreen'
+import { LoginScreen } from './LoginScreen'
 import { RegistrationScreen } from './RegistrationScreen'
 
-// allows screen to back-ref to our auth methods via useContext hook
+// allows screens to back-ref to our
+// auth methods via useContext hook
 const Stack = createNativeStackNavigator()
 
 export const ScreenNavigator = () => {
-  const { state, authContext } = useLogin()
-  const { isSignout, userToken } = state
+  const { state, authContext } = useLoginMeteor()
+  const { userToken } = state
 
   const renderScreens = () => {
     if (userToken) {
       return (<Stack.Screen name="Home" component={HomeScreen} />)
     }
 
+    // not authenticated users
     return (
       <>
         <Stack.Screen
