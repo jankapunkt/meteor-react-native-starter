@@ -1,32 +1,12 @@
-import React from 'react';
-import { ScreenNavigator } from './src/screens/ScreenNavigator'
-import { StyleSheet, View, Text, ActivityIndicator } from 'react-native'
-import { useConnectMeteor } from './src/hooks/useConnectMeteor'
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
 export default function App () {
-  const { connected, connectionError } = useConnectMeteor()
-
-  // use splashscreen here, if you like
-  if (!connected) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator />
-        <Text>Connecting to our server...</Text>
-      </View>
-    )
-  }
-
-  // use alert or other things here, if you like
-  if (connectionError) {
-    return (
-      <View style={styles.container}>
-        <Text>Error, while connecting to our servers!</Text>
-        <Text>{connectionError.message}</Text>
-      </View>
-    )
-  }
-
-  return (<ScreenNavigator/>);
+  return (
+    <View style={styles.container}>
+      <Text>Welcome to the workshop!</Text>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
