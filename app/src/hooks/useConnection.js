@@ -20,7 +20,7 @@ Meteor.connect(config.backend.url, {
  * Hook that handle auto-reconnect and updates state accordingly.
  * @return {{connected: boolean|null, connectionError: Error|null}}
  */
-export const useConnectMeteor = () => {
+export const useConnection = () => {
   const [connected, setConnected] = useState(null)
   const [connectionError, setConnectionError] = useState(null)
 

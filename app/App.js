@@ -1,10 +1,10 @@
 import React from 'react';
 import { ScreenNavigator } from './src/screens/ScreenNavigator'
 import { StyleSheet, View, Text, ActivityIndicator } from 'react-native'
-import { useConnectMeteor } from './src/hooks/useConnectMeteor'
+import { useConnection } from './src/hooks/useConnection'
 
 export default function App () {
-  const { connected, connectionError } = useConnectMeteor()
+  const { connected, connectionError } = useConnection()
 
   // use splashscreen here, if you like
   if (!connected) {

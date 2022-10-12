@@ -41,7 +41,7 @@ const reducer = (state, action) => {
 
 const Data = Meteor.getData()
 
-export const useLoginMeteor = () => {
+export const useLogin = () => {
   const [state, dispatch] = useReducer(reducer, initialState, undefined)
 
   // Case 1: restore token already exists

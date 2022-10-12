@@ -3,7 +3,7 @@ import { CardStyleInterpolators } from '@react-navigation/stack'
 import { AuthContext } from '../contexts/AuthContext'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { useLoginMeteor } from '../hooks/useLoginMeteor'
+import { useLogin } from '../hooks/useLogin'
 import { HomeScreen } from './HomeScreen'
 import { LoginScreen } from './LoginScreen'
 import { RegistrationScreen } from './RegistrationScreen'
@@ -13,7 +13,7 @@ import { RegistrationScreen } from './RegistrationScreen'
 const Stack = createNativeStackNavigator()
 
 export const ScreenNavigator = () => {
-  const { state, authContext } = useLoginMeteor()
+  const { state, authContext } = useLogin()
   const { userToken } = state
 
   const renderScreens = () => {
