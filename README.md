@@ -91,6 +91,14 @@ After running, check the `app/.expo/settings.json` file and make sure it looks l
 
 Now you should be good to go for the workshop!
 
+## Install Expo Go on your development device
+
+With the "Expo Go" app you are able to build your dev builds without further configuration or emulators.
+You can also build cross-platform and test both Android and iOs without the need for Android SDK or XCode,
+Expo covers all that for you.
+
+If you still prefer an emulator, please install them on your own behalf.
+
 ## Questions
 
 If you have questions or problems with the installation, please leave an issue.
