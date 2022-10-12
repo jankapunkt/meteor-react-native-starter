@@ -16,10 +16,7 @@ $ git clone git@github.com:jankapunkt/meteor-react-native-workshop.git
 # If you have no ssh access to GitHub, please use
 # https://github.com/jankapunkt/meteor-react-native-workshop.git
 $ cd meteor-react-native-workshop
-$ get checkout workshop
 ```
-
-The workshop branch contains all necessary project skeletons for you to "dive-in" at the right point.
 
 **Note: you can play around etc. prior to the workshop, but you should either reset your changes or work on a separate 
 branch. Please make sure you have no changes in your code when the workshop starts.**
@@ -70,6 +67,29 @@ First, get your local ip via
 | Windows | `ipconfig`     |
 
 Then replace the pattern `xxx.xxx.xxx.xxx` with the local ip from your network in `app/config.json`.
+
+Finally, run your app via
+
+```bash
+$ cd app && meteor npm run start
+```
+
+After running, check the `app/.expo/settings.json` file and make sure it looks like the following:
+
+```json
+{
+  "hostType": "lan",
+  "lanType": "ip",
+  "dev": true,
+  "minify": false,
+  "urlRandomness": "mc-y7b",
+  "https": false,
+  "scheme": null,
+  "devClient": false
+}
+```
+
+Now you should be good to go for the workshop!
 
 ## Questions
 
