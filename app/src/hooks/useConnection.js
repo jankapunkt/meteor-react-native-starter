@@ -3,11 +3,13 @@ import Meteor from '@meteorrn/core'
 import * as SecureStore from 'expo-secure-store'
 import config from '../../config.json'
 
-// get detailed debug about internals
+// get detailed info about internals
 Meteor.isVerbose = true
 
 // connect with Meteor and use a secure store
-// to persist our received login token
+// to persist our received login token, so it's encrypted
+// and only readable for this very app
+// read more at: https://docs.expo.dev/versions/latest/sdk/securestore/
 Meteor.connect(config.backend.url, {
   AsyncStorage: {
     getItem: SecureStore.getItemAsync,
@@ -24,20 +26,18 @@ export const useConnection = () => {
   const [connected, setConnected] = useState(null)
   const [connectionError, setConnectionError] = useState(null)
 
+  // we use separate functions as the handlers, so they get removed
+  // on unmount, which happens on auto-reload and would cause errors
+  // if not handled
   useEffect(() => {
-    // on any connection error
     const onError = (e) => setConnectionError(e)
     Meteor.ddp.on('error', onError)
 
-    // if a connection has been established
-    const onConnected = () =>  {
-      if (connected !== true) {
-        setConnected(true)
-      }
-    }
+    const onConnected = () => connected !== true && setConnected(true)
     Meteor.ddp.on('connected', onConnected)
 
-    // if the connection is lost
+    // if the connection is lost, we not only switch the state
+    // but also force to reconnect to the server
     const onDisconnected = () => {
       Meteor.ddp.autoConnect = true
       if (connected !== false) {
@@ -45,13 +45,13 @@ export const useConnection = () => {
       }
       Meteor.reconnect()
     }
-    Meteor.ddp.on('disconnected',onDisconnected)
+    Meteor.ddp.on('disconnected', onDisconnected)
 
-    // remove on unmount
+    // remove all of these listeners on unmount
     return () => {
       Meteor.ddp.off('error', onError)
       Meteor.ddp.off('connected', onConnected)
-      Meteor.ddp.off('disconnected',onDisconnected)
+      Meteor.ddp.off('disconnected', onDisconnected)
     }
   }, [])
 

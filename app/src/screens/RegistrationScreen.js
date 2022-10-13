@@ -25,22 +25,22 @@ export const RegistrationScreen = () => {
   return (
     <View>
       <TextInput
-        placeholder="Your Email"
-        placeholderTextColor={'#8a8a8a'}
+        placeholder='Your Email'
+        placeholderTextColor='#8a8a8a'
         style={inputStyles.text}
         value={email}
         onChangeText={setEmail}
       />
       <TextInput
-        placeholder="Your password"
-        placeholderTextColor={'#8a8a8a'}
+        placeholder='Your password'
+        placeholderTextColor='#8a8a8a'
         style={inputStyles.text}
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
       {renderError()}
-      <Button title="Sign in" onPress={onSignUp}/>
+      <Button title='Sign in' onPress={onSignUp} />
     </View>
   )
 }

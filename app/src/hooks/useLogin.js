@@ -1,21 +1,14 @@
-import React, { useReducer, useEffect, useMemo } from 'react';
+import { useReducer, useEffect, useMemo } from 'react'
 import Meteor from '@meteorrn/core'
 
+/** @private */
 const initialState = {
   isLoading: true,
   isSignout: false,
   userToken: null
 }
 
-/**
- * Manages our authentication state, that can consist of
- *
- * {{
- *   userToken: string|null,
- *   isLoading: boolean,
- *   isSignOut: boolean|undefined
- * }}
- */
+/** @private */
 const reducer = (state, action) => {
   switch (action.type) {
     case 'RESTORE_TOKEN':
@@ -39,8 +32,33 @@ const reducer = (state, action) => {
   }
 }
 
+/** @private */
 const Data = Meteor.getData()
 
+/**
+ * Provides a state and authentication context for components to decide, whether
+ * the user is authenticated and also to run several authentication actions.
+ *
+ * The returned state contains the following structure:
+ * {{
+ *   isLoading: boolean,
+ *   isSignout: boolean,
+ *   userToken: string|null
+ * }
+ * }}
+ *
+ * the authcontext provides the following methods:
+ * {{
+ *   signIn: function,
+ *   signOut: function,
+ *   signUp: function
+ * }}
+ *
+ * @returns {{
+ *   state:object,
+ *   authContext: object
+ * }}
+ */
 export const useLogin = () => {
   const [state, dispatch] = useReducer(reducer, initialState, undefined)
 
@@ -80,11 +98,10 @@ export const useLogin = () => {
     },
     signUp: ({ email, password, onError }) => {
       Meteor.call('register', { email, password }, (err, res) => {
-        console.debug('on register', err, res)
         if (err) {
           return onError(err)
         }
-        // TODO make dry
+        // TODO move the below code and the code from signIn into an own function
         Meteor.loginWithPassword(email, password, async (err) => {
           if (err) {
             if (err.message === 'Match failed [400]') {

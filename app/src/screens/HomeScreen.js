@@ -12,7 +12,7 @@ export const HomeScreen = () => {
   const renderError = () => {
     if (!error) { return null }
     return (
-      <View style={{alignItems: 'center'}}>
+      <View style={{ alignItems: 'center' }}>
         <Text>{error.message}</Text>
       </View>
     )
@@ -20,10 +20,9 @@ export const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>My Tasks</Text>
       <MyTasks />
       {renderError()}
-      <Button title="Sign out" onPress={handleSignOut} />
+      <Button title='Sign out' onPress={handleSignOut} />
     </View>
   )
 }

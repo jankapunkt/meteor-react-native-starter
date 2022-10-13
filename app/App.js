@@ -1,5 +1,5 @@
-import React from 'react';
-import { ScreenNavigator } from './src/screens/ScreenNavigator'
+import React from 'react'
+import { MainNavigator } from './src/screens/MainNavigator'
 import { StyleSheet, View, Text, ActivityIndicator } from 'react-native'
 import { useConnection } from './src/hooks/useConnection'
 
@@ -11,7 +11,7 @@ export default function App () {
     return (
       <View style={styles.container}>
         <ActivityIndicator />
-        <Text>Connecting to our server...</Text>
+        <Text>Connecting to our servers...</Text>
       </View>
     )
   }
@@ -26,7 +26,7 @@ export default function App () {
     )
   }
 
-  return (<ScreenNavigator/>);
+  return (<MainNavigator />)
 }
 
 const styles = StyleSheet.create({
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   }
-});
+})
