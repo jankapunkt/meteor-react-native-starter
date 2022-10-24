@@ -1,13 +1,12 @@
 # Meteor React Native Workshop
 
-The code repo for our workshop "Meteor and React Native" @ Meteor Impact 2022.
-It's part of the workshop preparation, so please install it prior to the workshop.
-
+This is the final code repo for our workshop "Meteor and React Native" @ Meteor Impact 2022.
 Please note, that I can't cover all operating systems out there.
 
 ## Installation
 
-You need to have Meteor installed on your system. Follow the Meteor installation instructions on https://meteor.com
+You need to have Meteor installed on your system. 
+Follow the Meteor installation instructions on [the Meteor website](https://meteor.com).
 
 ### Clone the repo and checkout the workshop branch
 
@@ -17,9 +16,6 @@ $ git clone git@github.com:jankapunkt/meteor-react-native-workshop.git
 # https://github.com/jankapunkt/meteor-react-native-workshop.git
 $ cd meteor-react-native-workshop
 ```
-
-**Note: you can play around etc. prior to the workshop, but you should either reset your changes or work on a separate 
-branch. Please make sure you have no changes in your code when the workshop starts.**
 
 ### Install and run the Meteor backend
 
@@ -98,6 +94,14 @@ You can also build cross-platform and test both Android and iOs without the need
 Expo covers all that for you.
 
 If you still prefer an emulator, please install them on your own behalf.
+
+## Get involved
+
+You liked this workshop or used this repo as a starter? 
+Please leave a star and help by contributing to [@meteorrn/core](https://github.com/meteorrn/meteor-react-native).
+
+If you find issues within the code, please leave an issue.
+Pull requests are welcomed, too!
 
 ## Questions
 
