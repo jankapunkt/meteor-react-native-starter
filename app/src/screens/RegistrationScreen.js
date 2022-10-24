@@ -1,46 +1,53 @@
 import React, { useContext, useState } from 'react'
-import { Text, TextInput, Button, View } from 'react-native'
-import { inputStyles } from '../styles/inputStyles'
+import { TextInput, Button, View } from 'react-native'
+import { defaultStyles } from '../styles/defaultStyles'
 import { AuthContext } from '../contexts/AuthContext'
+import { ErrorMessage } from '../components/ErrorMessage'
 
 export const RegistrationScreen = () => {
   const [email, setEmail] = useState()
+  const [firstName, setFirstName] = useState()
+  const [lastName, setLastName] = useState()
   const [password, setPassword] = useState()
   const [error, setError] = useState()
   const { signUp } = useContext(AuthContext)
 
   const onError = err => setError(err)
-  const onSignUp = () => signUp({ email, password, onError })
-  const renderError = () => {
-    if (!error) {
-      return null
-    }
-    return (
-      <View style={{ alignItems: 'center', padding: 15 }}>
-        <Text style={{ color: 'red' }}>{error.message}</Text>
-      </View>
-    )
-  }
+  const onSignUp = () => signUp({ email, password, firstName, lastName, onError })
 
   return (
-    <View>
+    <View style={defaultStyles.container}>
       <TextInput
         placeholder='Your Email'
         placeholderTextColor='#8a8a8a'
-        style={inputStyles.text}
+        style={defaultStyles.text}
         value={email}
         onChangeText={setEmail}
       />
       <TextInput
         placeholder='Your password'
         placeholderTextColor='#8a8a8a'
-        style={inputStyles.text}
+        style={defaultStyles.text}
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
-      {renderError()}
-      <Button title='Sign in' onPress={onSignUp} />
+      <TextInput
+        placeholder='Your first name (optional)'
+        placeholderTextColor='#8a8a8a'
+        style={defaultStyles.text}
+        value={firstName}
+        onChangeText={setFirstName}
+      />
+      <TextInput
+        placeholder='Your last name (optional)'
+        placeholderTextColor='#8a8a8a'
+        style={defaultStyles.text}
+        value={lastName}
+        onChangeText={setLastName}
+      />
+      <ErrorMessage error={error} />
+      <Button title='Create new account' onPress={onSignUp} />
     </View>
   )
 }

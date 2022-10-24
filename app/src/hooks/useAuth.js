@@ -1,14 +1,12 @@
 import { useReducer, useEffect, useMemo } from 'react'
 import Meteor from '@meteorrn/core'
 
-/** @private */
 const initialState = {
   isLoading: true,
   isSignout: false,
   userToken: null
 }
 
-/** @private */
 const reducer = (state, action) => {
   switch (action.type) {
     case 'RESTORE_TOKEN':
@@ -32,34 +30,18 @@ const reducer = (state, action) => {
   }
 }
 
-/** @private */
 const Data = Meteor.getData()
 
 /**
  * Provides a state and authentication context for components to decide, whether
  * the user is authenticated and also to run several authentication actions.
  *
- * The returned state contains the following structure:
- * {{
- *   isLoading: boolean,
- *   isSignout: boolean,
- *   userToken: string|null
- * }
- * }}
- *
- * the authcontext provides the following methods:
- * {{
- *   signIn: function,
- *   signOut: function,
- *   signUp: function
- * }}
- *
  * @returns {{
  *   state:object,
  *   authContext: object
  * }}
  */
-export const useLogin = () => {
+export const useAuth = () => {
   const [state, dispatch] = useReducer(reducer, initialState, undefined)
 
   // Case 1: restore token already exists
@@ -71,8 +53,17 @@ export const useLogin = () => {
     return () => Data.off('onLogin', handleOnLogin)
   }, [])
 
-  // the auth can be referenced via useContext in the several
-  // screens later on
+  /**
+   * Bridge between the backend endpoints and client.
+   * Get them via `const { signIn } = useContext(AuthContext)`
+   *
+   * @type {{
+   *   signIn: function({email: *, password: *, onError: *}): void,
+   *   signOut: function({onError: *}): void,
+   *   signUp: function({email: *, password: *, onError: *}): void,
+   *   deleteAccount: function({ onError: * });void
+   * }}
+   */
   const authContext = useMemo(() => ({
     signIn: ({ email, password, onError }) => {
       Meteor.loginWithPassword(email, password, async (err) => {
@@ -87,32 +78,42 @@ export const useLogin = () => {
         dispatch({ type, token })
       })
     },
-    signOut: () => {
+    signOut: ({ onError }) => {
       Meteor.logout(err => {
         if (err) {
-          // TODO display error, merge into the above workflow
-          return console.error(err)
+          return onError(err)
         }
         dispatch({ type: 'SIGN_OUT' })
       })
     },
-    signUp: ({ email, password, onError }) => {
-      Meteor.call('register', { email, password }, (err, res) => {
+    signUp: ({ email, password, firstName, lastName, onError }) => {
+      const signupArgs = { email, password, firstName, lastName, loginImmediately: true }
+
+      Meteor.call('registerNewUser', signupArgs, (err, credentials) => {
         if (err) {
           return onError(err)
         }
-        // TODO move the below code and the code from signIn into an own function
-        Meteor.loginWithPassword(email, password, async (err) => {
-          if (err) {
-            if (err.message === 'Match failed [400]') {
-              err.message = 'Login failed, please check your credentials and retry.'
-            }
-            return onError(err)
-          }
-          const token = Meteor.getAuthToken()
-          const type = 'SIGN_IN'
-          dispatch({ type, token })
-        })
+
+        // this sets the { id, token } values internally to make sure
+        // our calls to Meteor endpoints will be authenticated
+        Meteor._handleLoginCallback(err, credentials)
+
+        // from here this is the same routine as in signIn
+        const token = Meteor.getAuthToken()
+        const type = 'SIGN_IN'
+        dispatch({ type, token })
+      })
+    },
+    deleteAccount: ({ onError }) => {
+      Meteor.call('deleteAccount', (err) => {
+        if (err) {
+          return onError(err)
+        }
+
+        // removes all auth-based data from client
+        // as if we would call signOut
+        Meteor.handleLogout()
+        dispatch({ type: 'SIGN_OUT' })
       })
     }
   }), [])

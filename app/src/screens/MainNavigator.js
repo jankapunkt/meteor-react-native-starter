@@ -3,10 +3,12 @@ import { CardStyleInterpolators } from '@react-navigation/stack'
 import { AuthContext } from '../contexts/AuthContext'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { useLogin } from '../hooks/useLogin'
+import { useAuth } from '../hooks/useAuth'
 import { HomeScreen } from './HomeScreen'
 import { LoginScreen } from './LoginScreen'
 import { RegistrationScreen } from './RegistrationScreen'
+import { ProfileScreen } from './ProfileScreen'
+import { NavigateButton } from '../components/NavigateButton'
 
 /**
  * Provides a "push/pop" animation when switching between screens.
@@ -19,13 +21,19 @@ const Stack = createNativeStackNavigator()
  * @return {JSX.Element}
  */
 export const MainNavigator = () => {
-  const { state, authContext } = useLogin()
+  const { state, authContext } = useAuth()
   const { userToken } = state
 
   const renderScreens = () => {
     if (userToken) {
-      // only authenticated users can visit the home screen
-      return (<Stack.Screen name='Home' component={HomeScreen} />)
+      // only authenticated users can visit these screens
+      const headerRight = () => (<NavigateButton title='My profile' route='Profile' />)
+      return (
+        <>
+          <Stack.Screen name='Home' component={HomeScreen} options={{ title: 'Welcome home', headerRight }} />
+          <Stack.Screen name='Profile' component={ProfileScreen} options={{ title: 'Your profile' }} />
+        </>
+      )
     }
 
     // non authenticated users need to sign in or register
