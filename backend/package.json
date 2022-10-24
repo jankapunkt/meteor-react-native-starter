@@ -2,11 +2,15 @@
   "name": "backend",
   "private": true,
   "scripts": {
-    "start": "meteor --settings=settings.json --port=8000"
+    "start": "meteor --settings=settings.json --port=8000",
+    "lint": "standard | snazzy",
+    "lint:fix": "standard --fix | snazzy"
   },
   "dependencies": {
     "@babel/runtime": "^7.17.9",
-    "meteor-node-stubs": "^1.2.1"
+    "meteor-node-stubs": "^1.2.1",
+    "snazzy": "^9.0.0",
+    "standard": "^17.0.0"
   },
   "meteor": {
     "mainModules": {
