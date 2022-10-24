@@ -1,1 +1,10 @@
-{}
+{
+  "accounts": {
+    "config": {
+      "forbidClientAccountCreation": true,
+      "ambiguousErrorMessages": true,
+      "sendVerificationEmail": true,
+      "loginExpirationInDays": null
+    }
+  }
+}
