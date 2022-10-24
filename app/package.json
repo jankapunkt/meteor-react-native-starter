@@ -6,7 +6,9 @@
     "start": "NODE_ENV=development expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "lint": "standard | snazzy",
+    "lint:fix": "standard --fix | snazzy"
   },
   "dependencies": {
     "@meteorrn/core": "^2.3.0",
@@ -30,7 +32,9 @@
     "react-native-web": "~0.18.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "snazzy": "^9.0.0",
+    "standard": "^17.0.0"
   },
   "private": true
 }
