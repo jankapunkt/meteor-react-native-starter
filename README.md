@@ -17,6 +17,8 @@ The best is, it's actually not that difficult!
 This starter brings the most basic integration for a Meteor project as a backend for your react native app.
 Just follow the instructions in this readme to get startet immediately.
 
+![preview](preview.png)
+
 ## Installation
 
 You need to have Meteor installed on your system. 
