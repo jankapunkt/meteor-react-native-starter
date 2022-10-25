@@ -1,7 +1,21 @@
-# Meteor React Native Workshop
+# Meteor React Native Starter
 
 This is the final code repo for our workshop "Meteor and React Native" @ Meteor Impact 2022.
-Please note, that I can't cover all operating systems out there.
+After post-editing it resulted in a complete starter repo. 🤩
+
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![GitHub](https://img.shields.io/github/license/jankapunkt/meteor-react-native-workshop)
+
+> **Please note,** that I can't cover all operating systems out there.
+
+## About
+
+Meteor and React Native are not integrated with each other by default. 
+However, there are great packages out there, that help us to make them integrate. 
+The best is, it's actually not that difficult!
+
+This starter brings the most basic integration for a Meteor project as a backend for your react native app.
+Just follow the instructions in this readme to get startet immediately.
 
 ## Installation
 
@@ -85,7 +99,7 @@ After running, check the `app/.expo/settings.json` file and make sure it looks l
 }
 ```
 
-Now you should be good to go for the workshop!
+Now you should be good to go to continue your development!
 
 ## Install Expo Go on your development device
 
@@ -103,6 +117,8 @@ Please leave a star and help by contributing to [@meteorrn/core](https://github.
 If you find issues within the code, please leave an issue.
 Pull requests are welcomed, too!
 
-## Questions
-
 If you have questions or problems with the installation, please leave an issue.
+
+## License
+
+MIT, see [LICENSE file](./LICENSE)
