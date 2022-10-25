@@ -2,6 +2,7 @@ import React from 'react'
 import { MainNavigator } from './src/screens/MainNavigator'
 import { StyleSheet, View, Text, ActivityIndicator } from 'react-native'
 import { useConnection } from './src/hooks/useConnection'
+import { ErrorMessage } from './src/components/ErrorMessage'
 
 export default function App () {
   const { connected, connectionError } = useConnection()
@@ -18,12 +19,7 @@ export default function App () {
 
   // use alert or other things here, if you like
   if (connectionError) {
-    return (
-      <View style={styles.container}>
-        <Text>Error, while connecting to our servers!</Text>
-        <Text>{connectionError.message}</Text>
-      </View>
-    )
+    return (<ErrorMessage error={connectionError} />)
   }
 
   return (<MainNavigator />)
