@@ -1,6 +1,6 @@
 import { AuthContext } from '../contexts/AuthContext'
 import { defaultColors, defaultStyles } from '../styles/defaultStyles'
-import { Button, Text, TextInput, View } from 'react-native'
+import { Button, Text, TextInput, View, StyleSheet } from 'react-native'
 import { useContext, useState } from 'react'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { useAccount } from '../hooks/useAccount'
@@ -11,8 +11,11 @@ export const ProfileScreen = () => {
   const [error, setError] = useState(null)
   const { signOut, deleteAccount } = useContext(AuthContext)
   const { user, updateProfile } = useAccount()
-
   const onError = err => setError(err)
+
+  if (!user) {
+    return null // if sign our or delete
+  }
 
   /**
    * Updates a profile field from given text input state
@@ -37,7 +40,7 @@ export const ProfileScreen = () => {
     if (editMode === fieldName) {
       return (
         <>
-          <Text style={defaultStyles.bold}>{title}</Text>
+          <Text style={styles.headline}>{title}</Text>
           <View style={defaultStyles.row}>
             <TextInput
               placeholder={title}
@@ -49,6 +52,7 @@ export const ProfileScreen = () => {
             />
             <ErrorMessage error={error} />
             <Button title='Update' onPress={() => updateField({ fieldName })} />
+            <Button title='Cancel' onPress={() => setEditMode('')} />
           </View>
         </>
       )
@@ -56,9 +60,9 @@ export const ProfileScreen = () => {
 
     return (
       <>
-        <Text style={defaultStyles.bold}>{title}</Text>
-        <View style={defaultStyles.row}>
-          <Text style={defaultStyles.flex1}>{user[fieldName] || 'Not yet defined'}</Text>
+        <Text style={styles.headline}>{title}</Text>
+        <View style={{ ...defaultStyles.row, alignSelf: 'stretch' }}>
+          <Text style={{ ...defaultStyles.text, flexGrow: 1 }}>{user[fieldName] || 'Not yet defined'}</Text>
           <Button
             title='Edit' onPress={() => {
               setEditValue(value)
@@ -72,14 +76,14 @@ export const ProfileScreen = () => {
 
   return (
     <View style={defaultStyles.container}>
+      <Text style={styles.headline}>Email</Text>
+      <Text style={{ ...defaultStyles.text, alignSelf: 'stretch' }}>{user.emails[0].address}</Text>
+
       {renderField({ title: 'First Name', fieldName: 'firstName' })}
       {renderField({ title: 'Last Name', fieldName: 'lastName' })}
 
-      <Text style={defaultStyles.bold}>Email</Text>
-      <Text>{user.emails[0].address}</Text>
-
-      <View style={{ ...defaultStyles.dangerBorder, padding: 10, marginTop: 10 }}>
-        <Text style={defaultStyles.bold}>Danger Zone</Text>
+      <Text style={styles.headline}>Danger Zone</Text>
+      <View style={{ ...defaultStyles.dangerBorder, padding: 10, marginTop: 10, alignSelf: 'stretch' }}>
         <Button title='Sign out' color={defaultColors.danger} onPress={() => signOut({ onError })} />
         <Button title='Delete account' color={defaultColors.danger} onPress={() => deleteAccount({ onError })} />
         <ErrorMessage error={error} />
@@ -87,3 +91,11 @@ export const ProfileScreen = () => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  headline: {
+    ...defaultStyles.bold,
+    alignSelf: 'flex-start'
+  }
+
+})

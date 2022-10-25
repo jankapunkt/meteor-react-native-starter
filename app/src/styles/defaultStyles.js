@@ -14,11 +14,18 @@ export const defaultStyles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    alignSelf: 'stretch',
     color: defaultColors.black,
     backgroundColor: defaultColors.white
   },
-  container: {
+  panel: {
     margin: 20
+  },
+  container: {
+    margin: 20,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   danger: {
     color: defaultColors.danger

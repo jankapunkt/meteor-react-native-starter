@@ -8,4 +8,4 @@ import { Text } from 'react-native'
  * @returns {JSX.Element}
  * @constructor
  */
-export const MyTasks = () => (<Text>My Tasks not yet implemented</Text>)
+export const MyTasks = () => (<Text>Welcome home!</Text>)
