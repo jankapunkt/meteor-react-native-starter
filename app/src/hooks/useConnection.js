@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import Meteor from '@meteorrn/core'
+import Meteor, { useTracker } from '@meteorrn/core'
 import * as SecureStore from 'expo-secure-store'
 import config from '../../config.json'
+import { createLog } from '../infrastructure/log/Log'
 
 // get detailed info about internals
 Meteor.isVerbose = true
@@ -15,7 +16,10 @@ Meteor.connect(config.backend.url, {
     getItem: SecureStore.getItemAsync,
     setItem: SecureStore.setItemAsync,
     removeItem: SecureStore.deleteItemAsync
-  }
+  },
+  autoConnect: true,
+  autoReconnect: true,
+  reconnectInterval: 500
 })
 
 /**
@@ -25,35 +29,30 @@ Meteor.connect(config.backend.url, {
 export const useConnection = () => {
   const [connected, setConnected] = useState(null)
   const [connectionError, setConnectionError] = useState(null)
+  const status = Meteor.useTracker(() => Meteor.status())
 
-  // we use separate functions as the handlers, so they get removed
-  // on unmount, which happens on auto-reload and would cause errors
-  // if not handled
+  if (status.connected && !connected) {
+    log.info('set connected', status)
+    setConnected(true)
+  }
+
+  if (connected && !status.connected) {
+    log.info('set disconnected', status)
+    setConnected(false)
+  }
+
+  // we additionally listen to any connection errors
   useEffect(() => {
     const onError = (e) => setConnectionError(e)
     Meteor.ddp.on('error', onError)
 
-    const onConnected = () => connected !== true && setConnected(true)
-    Meteor.ddp.on('connected', onConnected)
-
-    // if the connection is lost, we not only switch the state
-    // but also force to reconnect to the server
-    const onDisconnected = () => {
-      Meteor.ddp.autoConnect = true
-      if (connected !== false) {
-        setConnected(false)
-      }
-      Meteor.reconnect()
-    }
-    Meteor.ddp.on('disconnected', onDisconnected)
-
     // remove all of these listeners on unmount
     return () => {
       Meteor.ddp.off('error', onError)
-      Meteor.ddp.off('connected', onConnected)
-      Meteor.ddp.off('disconnected', onDisconnected)
     }
   }, [])
 
   return { connected, connectionError }
 }
+
+const log = createLog({ name: useConnection.name })
