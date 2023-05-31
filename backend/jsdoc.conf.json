@@ -1,0 +1,47 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc","closure"]
+  },
+  "source": {
+    "include": [
+      "./"
+    ],
+    "exclude": [
+      ".meteor",
+      "node_modules"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "plugins": [
+    "plugins/markdown",
+    "node_modules/better-docs/category",
+    "node_modules/better-docs/typescript"
+  ],
+  "sourceType": "module",
+  "opts": {
+    "encoding": "utf8",
+    "destination": "../docs/api/backend/",
+    "recurse": true,
+    "verbose": true,
+    "readme": "./README.md",
+    "template": "node_modules/better-docs"
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "search": true,
+    "better-docs": {
+      "name": "lea.online App-Backend Documentation",
+      "title": "lea.online App-Backend Documentation",
+      "hideGenerator": false,
+      "navLinks": [
+        {
+          "label": "Github",
+          "href": "https://github.com/leaonline/leaonline-app"
+        }
+      ]
+    }
+  }
+}
