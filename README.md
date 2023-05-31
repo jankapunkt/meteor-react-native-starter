@@ -24,13 +24,14 @@ Just follow the instructions in this readme to get startet immediately.
 You need to have Meteor installed on your system. 
 Follow the Meteor installation instructions on [the Meteor website](https://meteor.com).
 
-### Clone the repo and checkout the workshop branch
+### Create a new project from this template repo
 
-```bash
-$ git clone git@github.com:jankapunkt/meteor-react-native-workshop.git
-# If you have no ssh access to GitHub, please use
-# https://github.com/jankapunkt/meteor-react-native-workshop.git
-$ cd meteor-react-native-workshop
+This repo is a template repo so you can create your own project from it or directly clone it.
+
+If you want to clone it directly, you can do it via
+
+```shell
+$ git clone git@github.com:jankapunkt/meteor-react-native-starter.git
 ```
 
 ### Install and run the Meteor backend
