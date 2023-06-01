@@ -1,0 +1,45 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+    inputs:
+      releasetag:
+        required: true
+        description: 'Release tag'
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+
+    - name: fetch Semikolon font file
+      env:
+        FONT_URL: ${{ secrets.FONT_URL }}
+      run: |
+        mkdir -p ./src/assets/fonts
+        wget -q $FONT_URL -O ./src/assets/fonts/SemikolonPlus-Regular.ttf
+
+    - name: install node modules
+      run: cd src && npm ci && npm install --global expo-cli
+      
+    - name: eject from expo project
+      run: cd src && npx expo eject --non-interactive
+      
+    - name: build apk
+      run: cd src/android && ./gradlew assembleRelease
+    
+    - name: upload apk file
+      uses: actions/upload-artifact@v3
+      with:
+        name: android-release-${{ github.event.inputs.releasetag }}
+        path: src/android/app/build/outputs/apk/release/
