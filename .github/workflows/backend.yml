@@ -29,7 +29,7 @@ jobs:
           ${{ runner.os }}-node-
 
     - run: cd backend && npm ci
-    - run: cd backend && npm run lint:code
+    - run: cd backend && npm run lint
 
   tests:
     name: Meteor ${{ matrix.meteor }} tests
