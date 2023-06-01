@@ -2,6 +2,13 @@
   "name": "app",
   "version": "1.0.0",
   "main": "index.js",
+  "description": "React Native App using Meteor backend",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jankapunkt/meteor-react-native-starter.git"
+  },
+  "license": "MIT",
+  "author": "Your name <your email>",
   "scripts": {
     "start": "NODE_ENV=development expo start",
     "android": "expo run:android",
