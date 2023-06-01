@@ -15,7 +15,9 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "standard | snazzy",
-    "lint:fix": "standard --fix | snazzy"
+    "lint:fix": "standard --fix | snazzy",
+    "test": "",
+    "build:docs": ""
   },
   "dependencies": {
     "@meteorrn/core": "^2.4.0",
