@@ -16,8 +16,8 @@
     "web": "expo start --web",
     "lint": "standard | snazzy",
     "lint:fix": "standard --fix | snazzy",
-    "test": "",
-    "build:docs": ""
+    "test": "node_modules/.bin/jest --coverage",
+    "build:docs": "jsdoc -c jsdoc.conf.json"
   },
   "dependencies": {
     "@meteorrn/core": "^2.4.0",
@@ -45,6 +45,7 @@
     "@babel/core": "^7.20.0",
     "jest": "^29.5.0",
     "jest-expo": "^48.0.2",
+    "jsdoc": "^4.0.2",
     "react-test-renderer": "^18.2.0",
     "sinon": "^15.1.0",
     "snazzy": "^9.0.0",

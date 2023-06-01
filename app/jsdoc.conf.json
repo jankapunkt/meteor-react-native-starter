@@ -1,0 +1,31 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "source": {
+    "include": ["."],
+    "exclude": [
+      ".expo",
+      ".expo-shared",
+      "__mocks__",
+      "__tests__",
+      "node_modules"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "templates": {
+    "better-docs": {
+      "name": "React components"
+    }
+  },
+  "opts": {
+    "destination": "../docs/api/app",
+    "recurse": true,
+    "readme": "../README.md"
+  }
+}

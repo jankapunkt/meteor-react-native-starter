@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: screens/ProfileScreen.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: screens/ProfileScreen.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { AuthContext } from '../contexts/AuthContext'
+import { defaultColors, defaultStyles } from '../styles/defaultStyles'
+import { Button, Text, TextInput, View, StyleSheet } from 'react-native'
+import { useContext, useState } from 'react'
+import { ErrorMessage } from '../components/ErrorMessage'
+import { useAccount } from '../hooks/useAccount'
+
+export const ProfileScreen = () => {
+  const [editMode, setEditMode] = useState('')
+  const [editValue, setEditValue] = useState('')
+  const [error, setError] = useState(null)
+  const { signOut, deleteAccount } = useContext(AuthContext)
+  const { user, updateProfile } = useAccount()
+  const onError = err => setError(err)
+
+  if (!user) {
+    return null // if sign our or delete
+  }
+
+  /**
+   * Updates a profile field from given text input state
+   * by sending update data to the server and let hooks
+   * reactively sync with the updated user document. *magic*
+   * @param fieldName {string} name of the field to update
+   */
+  const updateField = ({ fieldName }) => {
+    const options = {}
+    options[fieldName] = editValue
+    const onSuccess = () => {
+      setError(null)
+      setEditValue('')
+      setEditMode('')
+    }
+    updateProfile({ options, onError, onSuccess })
+  }
+
+  const renderField = ({ title, fieldName }) => {
+    const value = user[fieldName] || ''
+
+    if (editMode === fieldName) {
+      return (
+        &lt;>
+          &lt;Text style={styles.headline}>{title}&lt;/Text>
+          &lt;View style={defaultStyles.row}>
+            &lt;TextInput
+              placeholder={title}
+              autoFocus
+              placeholderTextColor={defaultColors.placeholder}
+              style={{ ...defaultStyles.text, ...defaultStyles.flex1 }}
+              value={editValue}
+              onChangeText={setEditValue}
+            />
+            &lt;ErrorMessage error={error} />
+            &lt;Button title='Update' onPress={() => updateField({ fieldName })} />
+            &lt;Button title='Cancel' onPress={() => setEditMode('')} />
+          &lt;/View>
+        &lt;/>
+      )
+    }
+
+    return (
+      &lt;>
+        &lt;Text style={styles.headline}>{title}&lt;/Text>
+        &lt;View style={{ ...defaultStyles.row, alignSelf: 'stretch' }}>
+          &lt;Text style={{ ...defaultStyles.text, flexGrow: 1 }}>{user[fieldName] || 'Not yet defined'}&lt;/Text>
+          &lt;Button
+            title='Edit' onPress={() => {
+              setEditValue(value)
+              setEditMode(fieldName)
+            }}
+          />
+        &lt;/View>
+      &lt;/>
+    )
+  }
+
+  return (
+    &lt;View style={defaultStyles.container}>
+      &lt;Text style={styles.headline}>Email&lt;/Text>
+      &lt;Text style={{ ...defaultStyles.text, alignSelf: 'stretch' }}>{user.emails[0].address}&lt;/Text>
+
+      {renderField({ title: 'First Name', fieldName: 'firstName' })}
+      {renderField({ title: 'Last Name', fieldName: 'lastName' })}
+
+      &lt;Text style={styles.headline}>Danger Zone&lt;/Text>
+      &lt;View style={{ ...defaultStyles.dangerBorder, padding: 10, marginTop: 10, alignSelf: 'stretch' }}>
+        &lt;Button title='Sign out' color={defaultColors.danger} onPress={() => signOut({ onError })} />
+        &lt;Button title='Delete account' color={defaultColors.danger} onPress={() => deleteAccount({ onError })} />
+        &lt;ErrorMessage error={error} />
+      &lt;/View>
+    &lt;/View>
+  )
+}
+
+const styles = StyleSheet.create({
+  headline: {
+    ...defaultStyles.bold,
+    alignSelf: 'flex-start'
+  }
+
+})
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Log.html">Log</a></li><li><a href="MyTasks.html">MyTasks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#LoginScreen">LoginScreen</a></li><li><a href="global.html#MainNavigator">MainNavigator</a></li><li><a href="global.html#NavigateButton">NavigateButton</a></li><li><a href="global.html#Stack">Stack</a></li><li><a href="global.html#createLog">createLog</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#useAuth">useAuth</a></li><li><a href="global.html#useConnection">useConnection</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jun 01 2023 10:52:05 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
