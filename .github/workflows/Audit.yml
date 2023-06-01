@@ -51,7 +51,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
      
-    - name: open src folder and install node modules
-      run: cd src && npm ci
-    - name: open src folder and check for vulnerabilities
-      run: cd src && npm audit --production
+    - name: open app folder and install node modules
+      run: cd app && npm ci
+    - name: open app folder and check for vulnerabilities
+      run: cd app && npm audit --production
