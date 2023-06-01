@@ -3,9 +3,9 @@
   "private": true,
   "scripts": {
     "start": "meteor --settings=settings.json --port=8000",
+    "build:docs": "npx jsdoc -c ./jsdoc.conf.json",
     "lint": "standardx -v | snazzy",
     "lint:fix": "standardx --fix -v | snazzy",
-    "build:docs": "npx jsdoc -c ./jsdoc.conf.json",
     "test": "TEST_SERVER=1 TEST_CLIENT=0 meteor test --once --driver-package=meteortesting:mocha --exclude-archs 'web.browser, web.browser.legacy' --settings=settings.json --port=6519",
     "test:watch": "TEST_SERVER=1 TEST_CLIENT=0 meteor test --driver-package=meteortesting:mocha --exclude-archs 'web.browser, web.browser.legacy' --settings=settings.json --port=6519",
     "test:coverage": "BABEL_ENV=COVERAGE COVERAGE=1 COVERAGE_OUT_HTML=1 COVERAGE_APP_FOLDER=$PWD TEST_SERVER=1 TEST_CLIENT=0 meteor test --driver-package=meteortesting:mocha --exclude-archs 'web.browser, web.browser.legacy' --settings=settings.json --port=6519"

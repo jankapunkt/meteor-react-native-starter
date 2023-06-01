@@ -37,10 +37,10 @@ describe('tasks.methods', function () {
   }
 
   const throwsWithoutUser = fn => it('throws if user is not in this-scope', () => {
-      const thrown = expect(() => fn({})).to.throw(NotSignedInError.NAME)
-      thrown.with.property('reason', NotSignedInError.REASON)
-      thrown.with.deep.property('details', { userId: undefined })
-    })
+    const thrown = expect(() => fn({})).to.throw(NotSignedInError.NAME)
+    thrown.with.property('reason', NotSignedInError.REASON)
+    thrown.with.deep.property('details', { userId: undefined })
+  })
 
   describe(checkTask.name, function () {
     throwsWithoutUser(checkTask)
@@ -86,7 +86,7 @@ describe('tasks.methods', function () {
       const taskDoc = createTaskDoc({ userId })
       expect(TasksCollection.find().count()).to.equal(1)
 
-      expect(removeTask.call(env, { _id: Random.id()})).to.equal(0)
+      expect(removeTask.call(env, { _id: Random.id() })).to.equal(0)
       expect(removeTask.call(env, { _id: taskDoc._id })).to.equal(1)
 
       expect(TasksCollection.find().count()).to.equal(0)

@@ -15,9 +15,7 @@
     "excludePattern": "(^|\\/|\\\\)_"
   },
   "plugins": [
-    "plugins/markdown",
-    "node_modules/better-docs/category",
-    "node_modules/better-docs/typescript"
+    "plugins/markdown"
   ],
   "sourceType": "module",
   "opts": {
@@ -25,23 +23,11 @@
     "destination": "../docs/api/backend/",
     "recurse": true,
     "verbose": true,
-    "readme": "./README.md",
-    "template": "node_modules/better-docs"
+    "readme": "./README.md"
   },
   "templates": {
     "cleverLinks": false,
     "monospaceLinks": false,
-    "search": true,
-    "better-docs": {
-      "name": "lea.online App-Backend Documentation",
-      "title": "lea.online App-Backend Documentation",
-      "hideGenerator": false,
-      "navLinks": [
-        {
-          "label": "Github",
-          "href": "https://github.com/leaonline/leaonline-app"
-        }
-      ]
-    }
+    "search": true
   }
 }
