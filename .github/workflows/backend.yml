@@ -92,7 +92,7 @@ jobs:
         run: cd backend && meteor npm ci
 
       - name: Run Tests
-        run: cd backend && meteor npm run test:coverage
+        run: cd backend && meteor npm run test:coverage -- --once
 
 
       - name: Upload coverage
