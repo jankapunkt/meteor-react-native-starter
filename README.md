@@ -3,7 +3,12 @@
 This is the final code repo for our workshop "Meteor and React Native" @ Meteor Impact 2022.
 After post-editing it resulted in a complete starter repo. 🤩
 
+[![App Testsuite](https://github.com/jankapunkt/meteor-react-native-starter/actions/workflows/test_app.yml/badge.svg)](https://github.com/jankapunkt/meteor-react-native-starter/actions/workflows/test_app.yml)
+[![Backend Testsuite](https://github.com/jankapunkt/meteor-react-native-starter/actions/workflows/backend.yml/badge.svg)](https://github.com/jankapunkt/meteor-react-native-starter/actions/workflows/backend.yml)
+[![JSDOC Test](https://github.com/jankapunkt/meteor-react-native-starter/actions/workflows/jsdoc_test.yml/badge.svg)](https://github.com/jankapunkt/meteor-react-native-starter/actions/workflows/jsdoc_test.yml)
+[![built with Meteor](https://img.shields.io/badge/Meteor-backend-green?logo=meteor&logoColor=white)](https://meteor.com)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 ![GitHub](https://img.shields.io/github/license/jankapunkt/meteor-react-native-workshop)
 
 > **Please note,** that I can't cover all operating systems out there.
