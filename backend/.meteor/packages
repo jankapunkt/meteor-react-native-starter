@@ -12,4 +12,13 @@ standard-minifier-css@1.8.2   # CSS minifier run for production mode
 standard-minifier-js@2.8.1    # JS minifier run for production mode
 ecmascript@0.16.2              # Enable ECMAScript2015+ syntax in app code
 
+#========================================
+# TESTING
+# needs to be placed before other packages
+#========================================
+meteortesting:mocha
+lmieulet:meteor-coverage@3.2.0
+hwillson:stub-collections
+
 accounts-password@2.3.1
+aldeed:collection2

@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor'
 import { TasksCollection } from './TasksCollection'
+import { NotSignedInError } from '../errors/NotSignedInError'
 
 /**
  * Checks if a user exists by id and throws otherwise
@@ -8,7 +9,7 @@ import { TasksCollection } from './TasksCollection'
  */
 const checkUser = userId => {
   if (!userId) {
-    throw new Meteor.Error('permissionDenied', 'notSignedIn', { userId })
+    throw new NotSignedInError({ userId })
   }
 }
 

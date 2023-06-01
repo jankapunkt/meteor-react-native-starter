@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor'
 import { Accounts } from 'meteor/accounts-base'
 import { check, Match } from 'meteor/check'
+import { NotSignedInError } from '../errors/NotSignedInError'
+import { PermissionDeniedError } from '../errors/PermissionDeniedError'
 
 /**
  * Registers a new user by email+password and minimal profile fields.
@@ -25,7 +27,7 @@ export const registerNewUser = function (options) {
   const { email, password, firstName, lastName, loginImmediately } = options
 
   if (Accounts.findUserByEmail(email)) {
-    throw new Meteor.Error('permissionDenied', 'userExists', { email })
+    throw new PermissionDeniedError('accounts.userExists', { email })
   }
 
   const userId = Accounts.createUser({ email, password })
@@ -64,7 +66,7 @@ export const updateUserProfile = function ({ firstName, lastName }) {
   const { userId } = this
 
   if (!userId) {
-    throw new Meteor.Error('permissionDenied', 'notAuthenticated', { userId })
+    throw new NotSignedInError({ userId })
   }
 
   const updateDoc = { $set: {} }
@@ -88,7 +90,7 @@ export const deleteAccount = function () {
   const { userId } = this
 
   if (!userId) {
-    throw new Meteor.Error('permissionDenied', 'notAuthenticated', { userId })
+    throw new NotSignedInError({ userId })
   }
 
   return !!Meteor.users.remove(userId)
