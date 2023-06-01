@@ -112,6 +112,29 @@ Expo covers all that for you.
 
 If you still prefer an emulator, please install them on your own behalf.
 
+## Run the tests
+
+This project comes with a builtin test-stack for backend and app!
+
+The backend uses 
+- `meteortesting:mocha` as test runner
+- `chai` as assertion lib
+- `sinon` for stubs
+- `hwillson:stub-collections` for stubbing MongoDB collections
+- `lmieulet:meteor-coverage` for coverage
+- `standardx` with some teaks as linter (basically eslint)
+
+The app uses
+- `jest` as test runner and assertion lib
+- `standardx` with some teaks as linter (basically eslint)
+
+## API Docs
+
+This repo uses jsDoc to generate API docs for backend and app.
+You can find the current API docs in the [docs folder](docs).
+
+To generate docs you can use the respective npm scripts in backend and app.
+
 ## Get involved
 
 You liked this workshop or used this repo as a starter? 
