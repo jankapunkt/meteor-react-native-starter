@@ -1,0 +1,57 @@
+name: NPM Audits
+
+on: 
+  push:
+    branches:
+      - master
+      - main
+      - release
+  
+  pull_request:
+    branches:
+      - release
+
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+      - name: cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: cd backend && npm ci
+      - run: cd backend && npm audit --production
+  app:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+    - name: cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+     
+    - name: open src folder and install node modules
+      run: cd src && npm ci
+    - name: open src folder and check for vulnerabilities
+      run: cd src && npm audit --production

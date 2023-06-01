@@ -1,0 +1,123 @@
+name: Backend Testsuite
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+
+jobs:
+  lintcode:
+    name: Javascript lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+
+    - name: setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+
+    - name: cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - run: cd backend && npm ci
+    - run: cd backend && npm run lint:code
+
+  tests:
+    name: Meteor ${{ matrix.meteor }} tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: Checkout leaonline:corelib repo
+        uses: actions/checkout@v3
+        with:
+          repository: leaonline/corelib
+          path: github/corelib
+
+
+      - name: Checkout leaonline:service-registry repo
+        uses: actions/checkout@v3
+        with:
+          repository: leaonline/service-registry
+          path: github/service-registry
+
+      # CACHING
+      - name: Install Meteor
+        id: cache-meteor-install
+        uses: actions/cache@v3
+        with:
+          path: ~/.meteor
+          key: v2-meteor-${{ hashFiles('.meteor/versions') }}
+          restore-keys: |
+                v2-meteor-
+
+      - name: Cache NPM dependencies
+        id: cache-meteor-npm
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: v1-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+                v1-npm-
+
+      - name: Cache Meteor build
+        id: cache-meteor-build
+        uses: actions/cache@v3
+        with:
+          path: |
+            .meteor/local/resolver-result-cache.json
+            .meteor/local/plugin-cache
+            .meteor/local/isopacks
+            .meteor/local/bundler-cache/scanner
+          key: v2-meteor_build_cache-${{ github.ref }}-${{ github.sha }}
+          restore-key: |
+            v2-meteor_build_cache-
+
+      - name: Setup meteor
+        uses: meteorengineer/setup-meteor@v1
+        with:
+          meteor-release: '2.7.3'
+
+      - name: Install NPM Dependencies
+        run: cd backend && meteor npm ci
+
+      - name: Run Tests
+        run: cd backend && sh ./test.sh -c -o
+
+# TODO add coverage checks etc.
+#      - name: Upload coverage
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: coverage-folder
+#          path: backend/.coverage/
+#
+#  coverage:
+#    name: Coverage report
+#    runs-on: ubuntu-latest
+#    needs: [tests]
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#
+#      - name: Download coverage
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: coverage-folder
+#          path: backend/.coverage/
+#
+#
+#      - name: Coverage Report
+#        uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
+#        with:
+#          path: ".coverage/lcov.info"
+#          min_coverage: 95 # TODO increase to 95!
