@@ -28,9 +28,9 @@ jobs:
           ${{ runner.os }}-node-
 
     - name: install node modules
-      run: cd src && npm ci
+      run: cd app && npm ci
     - name: run jsdoc
-      run: cd src && npm run build:docs
+      run: cd app && npm run build:docs
 
   backend:
     name: Backend docs

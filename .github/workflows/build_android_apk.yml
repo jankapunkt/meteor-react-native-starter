@@ -22,24 +22,17 @@ jobs:
       with:
         node-version: '16.x'
 
-    - name: fetch Semikolon font file
-      env:
-        FONT_URL: ${{ secrets.FONT_URL }}
-      run: |
-        mkdir -p ./src/assets/fonts
-        wget -q $FONT_URL -O ./src/assets/fonts/SemikolonPlus-Regular.ttf
-
     - name: install node modules
-      run: cd src && npm ci && npm install --global expo-cli
+      run: cd app && npm ci && npm install --global expo-cli
       
     - name: eject from expo project
-      run: cd src && npx expo eject --non-interactive
+      run: cd app && npx expo eject --non-interactive
       
     - name: build apk
-      run: cd src/android && ./gradlew assembleRelease
+      run: cd app/android && ./gradlew assembleRelease
     
     - name: upload apk file
       uses: actions/upload-artifact@v3
       with:
         name: android-release-${{ github.event.inputs.releasetag }}
-        path: src/android/app/build/outputs/apk/release/
+        path: app/android/app/build/outputs/apk/release/
