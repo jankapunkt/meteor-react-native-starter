@@ -5,7 +5,6 @@ import { NotSignedInError } from '../errors/NotSignedInError'
  * @module tasks/methods
  */
 
-
 /**
  * Checks if a user exists by id and throws otherwise
  * @private
