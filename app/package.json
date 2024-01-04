@@ -20,7 +20,7 @@
     "build:docs": "jsdoc -c jsdoc.conf.json"
   },
   "dependencies": {
-    "@meteorrn/core": "^2.4.0",
+    "@meteorrn/core": "^2.7.1",
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-community/netinfo": "9.3.10",
     "@react-navigation/native": "^6.0.13",
@@ -49,8 +49,7 @@
     "react-test-renderer": "^18.2.0",
     "sinon": "^15.1.0",
     "snazzy": "^9.0.0",
-    "standard": "^17.0.0",
-    "standardx": "^7.0.0"
+    "standard": "^17.0.0"
   },
   "private": true
 }

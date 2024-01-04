@@ -29,7 +29,7 @@ Meteor.connect(config.backend.url, {
 export const useConnection = () => {
   const [connected, setConnected] = useState(null)
   const [connectionError, setConnectionError] = useState(null)
-  const status = Meteor.useTracker(() => Meteor.status())
+  const status = useTracker(() => Meteor.status())
 
   if (status.connected && !connected) {
     log.info('set connected', status)

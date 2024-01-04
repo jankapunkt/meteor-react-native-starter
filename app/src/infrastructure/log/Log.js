@@ -8,23 +8,23 @@ class Log {
     this.logName = `[${name}]:`
   }
 
-  debug(...args) {
+  debug (...args) {
     console.debug(this.logName, ...args)
   }
 
-  info(...args) {
+  info (...args) {
     console.info(this.logName, ...args)
   }
 
-  log(...args) {
+  log (...args) {
     console.log(this.logName, ...args)
   }
 
-  warn(...args) {
+  warn (...args) {
     console.warn(this.logName, ...args)
   }
 
-  error(...args) {
+  error (...args) {
     console.error(this.logName, ...args)
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import React from 'react'
 import TestRenderer from 'react-test-renderer'
 import { ErrorMessage } from '../../src/components/ErrorMessage'

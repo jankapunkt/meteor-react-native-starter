@@ -1,3 +1,5 @@
+/* eslint-env jest */
+
 /**
  * Test helper to test async functions to throw
  * expected errors
@@ -9,12 +11,10 @@ export const expectThrowAsync = async ({ fn, message }) => {
   let catched = false
   try {
     await fn()
-  }
-  catch (e) {
+  } catch (e) {
     expect(e.message).toEqual(message)
     catched = true
-  }
-  finally {
+  } finally {
     expect(catched).toEqual(true)
   }
 }

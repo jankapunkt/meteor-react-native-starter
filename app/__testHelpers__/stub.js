@@ -9,8 +9,7 @@ export const stub = (target, name, handler) => {
   const stubbedTarget = sinon.stub(target, name)
   if (typeof handler === 'function') {
     stubbedTarget.callsFake(handler)
-  }
-  else {
+  } else {
     stubbedTarget.value(handler)
   }
   stubs.set(stubbedTarget, name)
