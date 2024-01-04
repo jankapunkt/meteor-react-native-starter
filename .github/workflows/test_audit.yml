@@ -33,7 +33,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: cd backend && npm ci
+      - run: cd backend && npm ci --force
       - run: cd backend && npm audit --production
   app:
     runs-on: ubuntu-latest
@@ -53,6 +53,6 @@ jobs:
           ${{ runner.os }}-node-
      
     - name: open app folder and install node modules
-      run: cd app && npm ci
+      run: cd app && npm ci --force
     - name: open app folder and check for vulnerabilities
       run: cd app && npm audit --production

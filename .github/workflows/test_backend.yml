@@ -28,7 +28,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
 
-    - run: cd backend && npm ci
+    - run: cd backend && npm ci --force
     - run: cd backend && npm run lint
 
   tests:
@@ -89,7 +89,7 @@ jobs:
           meteor-release: '2.7.3'
 
       - name: Install NPM Dependencies
-        run: cd backend && meteor npm ci
+        run: cd backend && meteor npm ci --force
 
       - name: Run Tests
         run: cd backend && meteor npm run test

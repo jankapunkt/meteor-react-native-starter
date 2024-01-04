@@ -28,7 +28,7 @@ jobs:
           ${{ runner.os }}-node-
 
     - name: install node modules
-      run: cd app && npm ci
+      run: cd app && npm ci --force
     - name: run jsdoc
       run: cd app && npm run build:docs
 
@@ -52,5 +52,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: cd backend && npm ci
+      - run: cd backend && npm ci --force
       - run: cd backend && npm run build:docs
