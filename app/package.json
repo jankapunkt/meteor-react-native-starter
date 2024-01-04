@@ -26,7 +26,7 @@
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
     "@react-navigation/stack": "^6.3.2",
-    "expo": "^48.0.16",
+    "expo": "^49.0.21",
     "expo-checkbox": "~2.3.1",
     "expo-secure-store": "~12.1.1",
     "expo-splash-screen": "~0.18.2",
