@@ -5,7 +5,7 @@ import config from '../../config.json'
 import { createLog } from '../infrastructure/log/Log'
 
 // get detailed info about internals
-Meteor.isVerbose = true
+Meteor.enableVerbose()
 
 // connect with Meteor and use a secure store
 // to persist our received login token, so it's encrypted
@@ -19,7 +19,7 @@ Meteor.connect(config.backend.url, {
   },
   autoConnect: true,
   autoReconnect: true,
-  reconnectInterval: 500
+  reconnectInterval: 1500
 })
 
 /**

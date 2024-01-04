@@ -1,5 +1,5 @@
 {
   "backend": {
-    "url": "ws://192.168.178.24:8000/websocket"
+    "url": "ws://192.168.178.46:8000/websocket"
   }
 }
