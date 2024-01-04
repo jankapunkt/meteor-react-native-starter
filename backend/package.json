@@ -11,8 +11,8 @@
     "test:coverage": "BABEL_ENV=COVERAGE COVERAGE=1 COVERAGE_OUT_HTML=1 COVERAGE_APP_FOLDER=$PWD TEST_SERVER=1 TEST_CLIENT=0 meteor test --driver-package=meteortesting:mocha --exclude-archs 'web.browser, web.browser.legacy' --settings=settings.json --port=6519"
   },
   "dependencies": {
-    "@babel/runtime": "^7.17.9",
-    "meteor-node-stubs": "^1.2.1",
+    "@babel/runtime": "^7.23.7",
+    "meteor-node-stubs": "^1.2.7",
     "simpl-schema": "^3.4.1",
     "snazzy": "^9.0.0"
   },
@@ -54,12 +54,12 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.22.1",
-    "@babel/eslint-parser": "^7.21.8",
+    "@babel/core": "^7.23.7",
+    "@babel/eslint-parser": "^7.23.3",
     "babel-plugin-istanbul": "^6.1.1",
-    "chai": "^4.3.7",
+    "chai": "^4.3.10",
     "jsdoc": "^4.0.2",
-    "sinon": "^15.1.0",
+    "sinon": "^15.2.0",
     "standardx": "^7.0.0"
   }
 }
